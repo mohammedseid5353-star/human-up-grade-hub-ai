@@ -7,7 +7,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// 🏠 Homepage (fix)
+// 🏠 Homepage
 app.get("/", (req, res) => {
   res.send("🚀 Human Upgrade Hub AI is running!");
 });
@@ -34,8 +34,8 @@ app.post("/chat", (req, res) => {
   res.json({ reply });
 });
 
-// 🚀 PORT (Render requirement)
-const PORT = process.env.PORT || 3000;
+// 🚀 PORT (Render)
+const PORT = process.env.PORT || 10000;
 
 app.listen(PORT, () => {
   console.log("🚀 AI Server running on port", PORT);
