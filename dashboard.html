@@ -1,31 +1,4 @@
-<async function send(){
-
-    let msg = document.getElementById("msg").value;
-    let chat = document.getElementById("chat");
-
-    if(msg === "") return;
-
-    chat.innerHTML += "👤 You: " + msg + "<br>";
-
-    try {
-        let res = await fetch("http://localhost:3000/chat", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ message: msg })
-        });
-
-        let data = await res.json();
-
-        chat.innerHTML += "🤖 AI: " + data.reply + "<br>";
-
-    } catch(error){
-        chat.innerHTML += "❌ Server not connected<br>";
-    }
-
-    document.getElementById("msg").value = "";
-}DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -87,27 +60,24 @@ button{
 
 <div class="container">
 
-    <h2>🤖 AI Chat</h2>
+<h2>🤖 AI Chat</h2>
 
-    <div class="chat-box" id="chat"></div>
+<div class="chat-box" id="chat"></div>
 
-    <input type="text" id="msg" placeholder="Ask something...">
-    <button onclick="send()">Send</button>
+<input type="text" id="msg" placeholder="Ask something...">
+<button onclick="send()">Send</button>
 
 </div>
 
 <script>
 
-// show user
-document.getElementById("user").innerText = localStorage.getItem("user");
+document.getElementById("user").innerText = localStorage.getItem("user") || "Guest";
 
-// logout
 function logout(){
     localStorage.removeItem("user");
     window.location.href = "index.html";
 }
 
-// AI simple demo (offline first)
 async function send(){
 
     let msg = document.getElementById("msg").value;
@@ -118,7 +88,7 @@ async function send(){
     chat.innerHTML += "👤 You: " + msg + "<br>";
 
     try {
-        let res = await fetch("http://localhost:3000/chat", {
+        let res = await fetch("https://human-up-grade-hub-ai-1.onrender.com/chat", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -135,24 +105,6 @@ async function send(){
     }
 
     document.getElementById("msg").value = "";
-}
-    let msg = document.getElementById("msg").value;
-    let chat = document.getElementById("chat");
-
-    if(msg === "") return;
-
-    chat.innerHTML += "👤 You: " + msg + "<br>";
-
-    let reply = "🤖 AI: I am learning...";
-
-    if(msg.toLowerCase().includes("hello")){
-        reply = "🤖 AI: Hello! How can I help you?";
-    }
-
-    chat.innerHTML += reply + "<br>";
-
-    document.getElementById("msg").value = "";
-    chat.scrollTop = chat.scrollHeight;
 }
 
 </script>
