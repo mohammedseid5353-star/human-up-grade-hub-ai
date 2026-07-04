@@ -1,8 +1,9 @@
 {
   "name": "human-upgrade-hub-ai",
   "version": "1.0.0",
-  "type": "module",
+  "description": "AI Chat Web App",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "start": "node server.js"
   },
