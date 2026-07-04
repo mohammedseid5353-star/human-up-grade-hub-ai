@@ -1,42 +1,43 @@
 import express from "express";
 import cors from "cors";
+import path from "path";
 
 const app = express();
 
-// middleware
 app.use(cors());
 app.use(express.json());
 
-// 🏠 Homepage
+// frontend
+app.use(express.static(".")); 
+
 app.get("/", (req, res) => {
-  res.send("🚀 Human Upgrade Hub AI is running!");
+  res.sendFile(path.resolve("index.html"));
 });
 
-// 🤖 Chat API
+// chat API
 app.post("/chat", (req, res) => {
   const message = (req.body.message || "").toLowerCase();
 
-  let reply = "I am Human Upgrade Hub AI 🤖";
+  let reply = "🤖 I am Human Upgrade Hub AI";
 
   if (message.includes("hello")) {
-    reply = "Hello 👋 How can I help you today?";
-  } 
-  else if (message.includes("who are you")) {
-    reply = "I am your AI assistant built for Human Upgrade Hub 🚀";
-  } 
-  else if (message.includes("motivate")) {
-    reply = "🔥 Never stop learning. Your future depends on your discipline!";
-  } 
-  else if (message.includes("trading")) {
-    reply = "📊 Trading needs patience, risk management and discipline.";
+    reply = "👋 Hello! How can I help you?";
+  } else if (message.includes("who are you")) {
+    reply = "🚀 I am your AI assistant";
+  } else if (message.includes("motivate")) {
+    reply = "🔥 Never give up!";
+  } else if (message.includes("trading")) {
+    reply = "📊 Trading needs discipline + patience";
+  } else {
+    reply = "🤖 I am still learning...";
   }
 
   res.json({ reply });
 });
 
-// 🚀 PORT (Render)
+// IMPORTANT FOR RENDER
 const PORT = process.env.PORT || 10000;
 
 app.listen(PORT, () => {
-  console.log("🚀 AI Server running on port", PORT);
+  console.log("🚀 Server running on port", PORT);
 });
