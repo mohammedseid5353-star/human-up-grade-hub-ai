@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Human Upgrade Hub - Login</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial;
+    background:linear-gradient(135deg,#050814,#0b1220);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    color:white;
+}
+
+.box{
+    background:rgba(255,255,255,0.05);
+    padding:30px;
+    border-radius:15px;
+    width:300px;
+    text-align:center;
+    backdrop-filter: blur(10px);
+}
+
+input{
+    width:100%;
+    padding:10px;
+    margin:10px 0;
+    border:none;
+    border-radius:8px;
+}
+
+button{
+    width:100%;
+    padding:10px;
+    background:#38bdf8;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+button:hover{
+    background:#0ea5e9;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="box">
+    <h2>🚀 Human Upgrade Hub</h2>
+    <p>Login to continue</p>
+
+    <input type="text" id="username" placeholder="Enter Username">
+    <input type="password" id="password" placeholder="Enter Password">
+
+    <button onclick="login()">Login</button>
+</div>
+
+<script>
+function login(){
+    let user = document.getElementById("username").value;
+    let pass = document.getElementById("password").value;
+
+    if(user !== "" && pass !== ""){
+        localStorage.setItem("user", user);
+        window.location.href = "dashboard.html";
+    } else {
+        alert("Please fill all fields");
+    }
+}
+</script>
+
+</body>
+</html>
