@@ -16,6 +16,7 @@ body{
 .header{
     padding:15px;
     background:rgba(255,255,255,0.05);
+    text-align:center;
 }
 
 .container{
@@ -57,33 +58,42 @@ button{
     </div>
 
     <div class="card">
-        <h3>🤖 AI Usage</h3>
-        <p id="ai">0</p>
+        <h3>💬 Status</h3>
+        <p id="status">Online</p>
+    </div>
+
+    <div class="card">
+        <h3>🚀 Server</h3>
+        <p>Running</p>
     </div>
 
     <br><br>
-
-    <button onclick="reset()">Reset Data</button>
+    <button onclick="clearUsers()">Clear Users</button>
 
 </div>
 
 <script>
 
-// load data
-let users = localStorage.getItem("users") || 1;
-let ai = localStorage.getItem("ai") || 0;
+// get users from localStorage (from login system)
+function loadUsers(){
+    let users = localStorage.getItem("user");
 
-document.getElementById("users").innerText = users;
-document.getElementById("ai").innerText = ai;
-
-// reset system
-function reset(){
-    localStorage.setItem("users", 0);
-    localStorage.setItem("ai", 0);
-
-    document.getElementById("users").innerText = 0;
-    document.getElementById("ai").innerText = 0;
+    if(users){
+        document.getElementById("users").innerText = 1;
+    } else {
+        document.getElementById("users").innerText = 0;
+    }
 }
+
+// clear users
+function clearUsers(){
+    localStorage.removeItem("user");
+    alert("Users cleared!");
+    loadUsers();
+}
+
+// init
+loadUsers();
 
 </script>
 
