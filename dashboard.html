@@ -27,7 +27,7 @@ body{
 .chat-box{
     background:rgba(255,255,255,0.05);
     height:300px;
-    overflow:auto;
+    overflow-y:auto;
     padding:10px;
     border-radius:10px;
     margin-bottom:10px;
@@ -71,24 +71,29 @@ button{
 
 <script>
 
+// show user
 document.getElementById("user").innerText = localStorage.getItem("user") || "Guest";
 
+// logout
 function logout(){
     localStorage.removeItem("user");
     window.location.href = "index.html";
 }
+
+// API URL (Render live server)
+const API_URL = "https://human-up-grade-hub-ai-1.onrender.com/chat";
 
 async function send(){
 
     let msg = document.getElementById("msg").value;
     let chat = document.getElementById("chat");
 
-    if(msg === "") return;
+    if(!msg) return;
 
-    chat.innerHTML += "👤 You: " + msg + "<br>";
+    chat.innerHTML += "<div>👤 You: " + msg + "</div>";
 
     try {
-        let res = await fetch("https://human-up-grade-hub-ai-1.onrender.com/chat", {
+        let res = await fetch(API_URL, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -98,15 +103,15 @@ async function send(){
 
         let data = await res.json();
 
-        chat.innerHTML += "🤖 AI: " + data.reply + "<br>";
+        chat.innerHTML += "<div>🤖 AI: " + data.reply + "</div>";
 
     } catch(error){
-        chat.innerHTML += "❌ Server not connected<br>";
+        chat.innerHTML += "<div>❌ Server not connected</div>";
     }
 
     document.getElementById("msg").value = "";
+    chat.scrollTop = chat.scrollHeight;
 }
-
 </script>
 
 </body>
