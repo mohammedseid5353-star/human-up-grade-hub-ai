@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial;
+    background:linear-gradient(135deg,#050814,#0b1220);
+    color:white;
+}
+
+.header{
+    padding:15px;
+    background:rgba(255,255,255,0.05);
+}
+
+.container{
+    padding:20px;
+    text-align:center;
+}
+
+.card{
+    background:rgba(255,255,255,0.05);
+    padding:20px;
+    margin:10px;
+    border-radius:10px;
+    display:inline-block;
+    width:200px;
+}
+
+button{
+    padding:10px;
+    border:none;
+    border-radius:8px;
+    background:#38bdf8;
+    cursor:pointer;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+    <h2>🛠 Admin Dashboard</h2>
+</div>
+
+<div class="container">
+
+    <div class="card">
+        <h3>👤 Users</h3>
+        <p id="users">0</p>
+    </div>
+
+    <div class="card">
+        <h3>🤖 AI Usage</h3>
+        <p id="ai">0</p>
+    </div>
+
+    <br><br>
+
+    <button onclick="reset()">Reset Data</button>
+
+</div>
+
+<script>
+
+// load data
+let users = localStorage.getItem("users") || 1;
+let ai = localStorage.getItem("ai") || 0;
+
+document.getElementById("users").innerText = users;
+document.getElementById("ai").innerText = ai;
+
+// reset system
+function reset(){
+    localStorage.setItem("users", 0);
+    localStorage.setItem("ai", 0);
+
+    document.getElementById("users").innerText = 0;
+    document.getElementById("ai").innerText = 0;
+}
+
+</script>
+
+</body>
+</html>
