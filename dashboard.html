@@ -1,0 +1,161 @@
+<async function send(){
+
+    let msg = document.getElementById("msg").value;
+    let chat = document.getElementById("chat");
+
+    if(msg === "") return;
+
+    chat.innerHTML += "👤 You: " + msg + "<br>";
+
+    try {
+        let res = await fetch("http://localhost:3000/chat", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ message: msg })
+        });
+
+        let data = await res.json();
+
+        chat.innerHTML += "🤖 AI: " + data.reply + "<br>";
+
+    } catch(error){
+        chat.innerHTML += "❌ Server not connected<br>";
+    }
+
+    document.getElementById("msg").value = "";
+}DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial;
+    background:linear-gradient(135deg,#050814,#0b1220);
+    color:white;
+}
+
+.header{
+    padding:15px;
+    background:rgba(255,255,255,0.05);
+    display:flex;
+    justify-content:space-between;
+}
+
+.container{
+    padding:20px;
+}
+
+.chat-box{
+    background:rgba(255,255,255,0.05);
+    height:300px;
+    overflow:auto;
+    padding:10px;
+    border-radius:10px;
+    margin-bottom:10px;
+}
+
+input{
+    width:75%;
+    padding:10px;
+    border:none;
+    border-radius:8px;
+}
+
+button{
+    padding:10px;
+    border:none;
+    border-radius:8px;
+    background:#38bdf8;
+    cursor:pointer;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+    <div>👋 Welcome <span id="user"></span></div>
+    <button onclick="logout()">Logout</button>
+</div>
+
+<div class="container">
+
+    <h2>🤖 AI Chat</h2>
+
+    <div class="chat-box" id="chat"></div>
+
+    <input type="text" id="msg" placeholder="Ask something...">
+    <button onclick="send()">Send</button>
+
+</div>
+
+<script>
+
+// show user
+document.getElementById("user").innerText = localStorage.getItem("user");
+
+// logout
+function logout(){
+    localStorage.removeItem("user");
+    window.location.href = "index.html";
+}
+
+// AI simple demo (offline first)
+async function send(){
+
+    let msg = document.getElementById("msg").value;
+    let chat = document.getElementById("chat");
+
+    if(msg === "") return;
+
+    chat.innerHTML += "👤 You: " + msg + "<br>";
+
+    try {
+        let res = await fetch("http://localhost:3000/chat", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ message: msg })
+        });
+
+        let data = await res.json();
+
+        chat.innerHTML += "🤖 AI: " + data.reply + "<br>";
+
+    } catch(error){
+        chat.innerHTML += "❌ Server not connected<br>";
+    }
+
+    document.getElementById("msg").value = "";
+}
+    let msg = document.getElementById("msg").value;
+    let chat = document.getElementById("chat");
+
+    if(msg === "") return;
+
+    chat.innerHTML += "👤 You: " + msg + "<br>";
+
+    let reply = "🤖 AI: I am learning...";
+
+    if(msg.toLowerCase().includes("hello")){
+        reply = "🤖 AI: Hello! How can I help you?";
+    }
+
+    chat.innerHTML += reply + "<br>";
+
+    document.getElementById("msg").value = "";
+    chat.scrollTop = chat.scrollHeight;
+}
+
+</script>
+
+</body>
+</html>
