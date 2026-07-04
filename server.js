@@ -3,10 +3,11 @@ import cors from "cors";
 
 const app = express();
 
+// middleware
 app.use(cors());
 app.use(express.json());
 
-// 🏠 Homepage (fixes Cannot GET /)
+// 🏠 Homepage (fix)
 app.get("/", (req, res) => {
   res.send("🚀 Human Upgrade Hub AI is running!");
 });
@@ -37,5 +38,5 @@ app.post("/chat", (req, res) => {
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-  console.log(`🚀 AI Server running on port ${PORT}`);
+  console.log("🚀 AI Server running on port", PORT);
 });
